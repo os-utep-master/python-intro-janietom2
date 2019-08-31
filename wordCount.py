@@ -1,5 +1,5 @@
 import re
-import pprint
+import sys
 import collections
 
 
@@ -38,30 +38,21 @@ def word_counter(text: str, clean_words, list_words):
     return dictionary_word
 
 
-with open('declaration.txt', 'r') as myfile:
+with open(sys.argv[1], 'r') as myfile:
   story = myfile.read()
 
-# story = "Yo vi llorar una nube, como que quiere llover, como quieres que te olvide, si apenas te empiezo a querer. yo vi llorar una nube, nube, nube, llover, apenas"
 
 x = list_of_word(story.lower())
-print(x)
 c = remove_duplicated(x)
-# print(c)
-print("================================")
-print("Dictionary")
-print("================================")
 d = word_counter(story, c, x)
-
 od = collections.OrderedDict(sorted(d.items()))
 
-file1 = open("dic.txt", "w")
-
+file1 = open(sys.argv[2], "w")
 for key in od:
-    print(str(key)+" "+str(od[key]))
     file1.write(str(key)+" "+str(od[key])+"\n")
 
 file1.close()
-# file1.write()
+
 
 
 
