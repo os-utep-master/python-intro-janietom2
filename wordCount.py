@@ -1,6 +1,5 @@
 import re
 import sys
-import collections
 
 
 def list_of_word(text: str):
