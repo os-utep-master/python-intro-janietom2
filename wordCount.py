@@ -27,6 +27,7 @@ def word_counter(text: str, clean_words, list_words):
     seen = set()
 
     # Create a dictionary from the list and set all values to 1 (initiate counter)
+    clean_words.sort()
     dictionary_word = {i: 1 for i in clean_words}
 
     for word in list_words:
@@ -45,17 +46,10 @@ def main():
     x = list_of_word(story.lower())
     c = remove_duplicated(x)
     d = word_counter(story, c, x)
-    od = collections.OrderedDict(sorted(d.items()))  # Collections library will sort the keys in the dictionary
-
-    """ NOTE: 
-        Regarding the collections library, another way to manage the sort of the keys is sorting the list before
-        transforming it into a dictionary. I will try it on a different branch named <No-collections library> on the 
-        repository
-     """
 
     file1 = open(sys.argv[2], "w")
-    for key in od:
-        file1.write(str(key) + " " + str(od[key]) + "\n")
+    for key in d:
+        file1.write(str(key) + " " + str(d[key]) + "\n")
 
     file1.close()
 
