@@ -26,7 +26,7 @@ def word_counter(text: str, clean_words, list_words):
     """ Will check how many times a word is being repeated and set a counter for that word """
     seen = set()
 
-    # Create a dictionary from the list and set all values to 0 (initiate counter)
+    # Create a dictionary from the list and set all values to 1 (initiate counter)
     dictionary_word = {i: 1 for i in clean_words}
 
     for word in list_words:
@@ -38,21 +38,27 @@ def word_counter(text: str, clean_words, list_words):
     return dictionary_word
 
 
-with open(sys.argv[1], 'r') as myfile:
-  story = myfile.read()
+def main():
+    with open(sys.argv[1], 'r') as txtFile:
+        story = txtFile.read()  # Load everything into a variable
+
+    x = list_of_word(story.lower())
+    c = remove_duplicated(x)
+    d = word_counter(story, c, x)
+    od = collections.OrderedDict(sorted(d.items()))  # Collections library will sort the keys in the dictionary
+
+    """ NOTE: 
+        Regarding the collections library, another way to manage the sort of the keys is sorting the list before
+        transforming it into a dictionary. I will try it on a different branch named <No-collections library> on the 
+        repository
+     """
+
+    file1 = open(sys.argv[2], "w")
+    for key in od:
+        file1.write(str(key) + " " + str(od[key]) + "\n")
+
+    file1.close()
 
 
-x = list_of_word(story.lower())
-c = remove_duplicated(x)
-d = word_counter(story, c, x)
-od = collections.OrderedDict(sorted(d.items()))
-
-file1 = open(sys.argv[2], "w")
-for key in od:
-    file1.write(str(key)+" "+str(od[key])+"\n")
-
-file1.close()
-
-
-
-
+if __name__ == "__main__":
+    main()
